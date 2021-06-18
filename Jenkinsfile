@@ -15,7 +15,7 @@ pipeline {
             steps {
                git 'https://github.com/veplotnikov/boxfuse.git'
                sh 'mvn package'
-               sh 'echo "FROM davidcaste/alpine-tomcat:jre8tomcat7" > Dockerfile && echo "ADD target/hello-1.0.war /opt/tomcat/webapps" >> Dockerfile && echo "CMD [\"/opt/tomcat/bin/catalina.sh\", \"run\"]"  >> Dockerfile'
+               sh 'echo "FROM davidcaste/alpine-tomcat:jre8tomcat7" > Dockerfile && echo "ADD hello-1.0.war /opt/tomcat/webapps" >> Dockerfile && echo "CMD [\"/opt/tomcat/bin/catalina.sh\",\"run\"]"  >> Dockerfile'
                sh 'docker image build -t 35.214.18.4:8011/prod:v1.1 .'
                sh 'docker push 35.214.18.4:8011/prod:v1.0'
             }

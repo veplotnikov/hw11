@@ -22,11 +22,11 @@ pipeline {
         }
         stage ('deploy') {
         agent any
-        }
+        
             steps {
                 sh 'docker run -p 8081:8080 35.214.18.4:8011/prod:v1.1'
             }
-
+        }
         
         
     }

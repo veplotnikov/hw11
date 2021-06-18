@@ -24,7 +24,8 @@ pipeline {
         agent any
         
             steps {
-                sh 'docker run -d -p 81:8080 35.214.18.4:8011/prod:v1.1  /opt/tomcat/bin/catalina.sh run'
+                sh 'docker stop tomcat'
+                sh 'docker run -d -p 81:8080 --name tomcat 35.214.18.4:8011/prod:v1.1  /opt/tomcat/bin/catalina.sh run'
             }
         }
         

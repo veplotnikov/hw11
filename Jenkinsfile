@@ -1,16 +1,8 @@
 pipeline {
-
-    agent none 
-
+    
+    agent none
+  
     stages {
-        agent {
-         docker {
-           args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
-           image 'builder:v1.0'
-           registryCredentialsId 'f27d57dd-5835-4003-b45a-b0598a851790'
-           registryUrl 'http://35.214.18.4:8011'
-           }
-        }
         stage ('git clone') {
         agent {
          docker {

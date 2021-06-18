@@ -17,14 +17,14 @@ pipeline {
                sh 'mvn package'
                sh 'echo "FROM davidcaste/alpine-tomcat:jre8tomcat7" > Dockerfile && echo "ADD target/hello-1.0.war /opt/tomcat/webapps" >> Dockerfile && echo "CMD [\"/opt/tomcat/bin/catalina.sh\",\"run\"]"  >> Dockerfile'
                sh 'docker image build -t 35.214.18.4:8011/prod:v1.1 .'
-               sh 'docker push 35.214.18.4:8011/prod:v1.0'
+               sh 'docker push 35.214.18.4:8011/prod:v1.1'
             }
         }
         stage ('deploy') {
         agent any
         
             steps {
-                sh 'docker run -p 8081:8080 35.214.18.4:8011/prod:v1.1'
+                sh 'docker run -d -p 81:8080 35.214.18.4:8011/prod:v1.1  /opt/tomcat/bin/catalina.sh run'
             }
         }
         

@@ -15,7 +15,6 @@ pipeline {
             steps {
                git 'https://github.com/veplotnikov/boxfuse.git'
                sh 'mvn package'
-               sh 'echo "FROM davidcaste/alpine-tomcat:jre8tomcat7" > Dockerfile && echo "ADD target/hello-1.0.war /opt/tomcat/webapps" >> Dockerfile '
                sh 'docker image build -t 35.214.18.4:8011/prod:v1.1 .'
                sh 'docker push 35.214.18.4:8011/prod:v1.1'
             }
@@ -24,8 +23,8 @@ pipeline {
         agent any
         
             steps {
-                sh 'docker stop tomcat && docker rm tomcat'
-                sh 'docker run -d -p 81:8080 --name tomcat 35.214.18.4:8011/prod:v1.1  /opt/tomcat/bin/catalina.sh run'
+                sh 'ssh jenkins@35.214.18.67 "sudo docker stop tomcat && sudo docker rm tomcat"'
+                sh 'ssh jenkins@35.214.18.67 "sudo docker run -d -p 81:8080 --name tomcat 35.214.18.4:8011/prod:v1.1  /opt/tomcat/bin/catalina.sh run"'
             }
         }
         
